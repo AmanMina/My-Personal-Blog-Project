@@ -1,4 +1,6 @@
 import datetime
+import os
+
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
@@ -15,22 +17,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///user-blogs-data.db"
-app.config['SECRET_KEY'] = '123456'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 ckeditor = CKEditor(app)
 db = SQLAlchemy(app)
 Bootstrap(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False, base_url=None)
-
-
-
-
-
-
-
-
 
 
 ##CONFIGURE TABLE
